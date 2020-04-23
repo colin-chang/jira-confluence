@@ -36,3 +36,6 @@ docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
     -o http://192.168.0.202 \
     -s 202
 ```
+
+## DB connection
+![DB connection](db-config.jpg)
