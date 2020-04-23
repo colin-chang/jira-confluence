@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+  jira:
+    image: haxqer/jira:rm
+    container_name: atlassian-jira
+    environment:
+      - TZ='Asia/Shanghai'
+    depends_on:
+      - mysql
+    ports:
+      - "80:8080"
+    volumes:
+      - ./jira:/var/jira
+    restart: always
+    networks:
+      - atlassian
+
+  confluence:
+    image: haxqer/confluence:7.3.1
+    container_name: atlassian-confluence
+    environment:
+      - TZ='Asia/Shanghai'
+    depends_on:
+      - mysql
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./confluence:/var/confluence
+    restart: always
+    networks:
+      - atlassian
+
+  mysql:
+    image: mysql:5.7
+    container_name: atlassian-mysql
+    environment:
+      - TZ='Asia/Shanghai'
+      - MYSQL_ROOT_PASSWORD=123123
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_bin','--transaction-isolation=READ-COMMITTED', '--innodb_log_file_size=256M', '--max_allowed_packet=256M']
+    ports:
+     - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+    networks:
+      - atlassian
+
+networks:
+  atlassian:
+    driver: bridge
