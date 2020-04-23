@@ -29,7 +29,7 @@ docker exec atlassian-confluence java -jar /var/agent/atlassian-agent.jar \
 ## Crack plugin 
 ```bash
 # biggantt 
-docker exec jira-srv java -jar /var/agent/atlassian-agent.jar \
+docker exec atlassian-jira java -jar /var/agent/atlassian-agent.jar \
     -p eu.softwareplant.biggantt \
     -m zhangcheng5468@gmail.com \
     -n zhangcheng5468@gmail.com \
