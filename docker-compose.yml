@@ -1,20 +1,5 @@
 version: '3.7'
 services:
-  jira:
-    image: haxqer/jira:rm
-    container_name: atlassian-jira
-    environment:
-      - TZ='Asia/Shanghai'
-    depends_on:
-      - mysql
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./jira:/var/jira
-    restart: always
-    networks:
-      - atlassian
-
   confluence:
     image: haxqer/confluence:7.3.1
     container_name: atlassian-confluence
@@ -35,6 +20,7 @@ services:
     container_name: atlassian-mysql
     environment:
       - TZ='Asia/Shanghai'
+      - MYSQL_DATABASE=confluence
       - MYSQL_ROOT_PASSWORD=123123
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_bin','--transaction-isolation=READ-COMMITTED', '--innodb_log_file_size=256M', '--max_allowed_packet=256M']
     volumes:
